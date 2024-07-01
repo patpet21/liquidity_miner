@@ -642,10 +642,10 @@ function userBalance(callback){
 
 function buyEggs(ref, trx, callback){
 	if(+trx > +usrBal) {
-		alert("You don't have " + trx + " BusyMan (BSM) in your wallet");
+		alert("You don't have " + trx + " MEXA -$MXA- in your wallet");
 	}
 	else if(+trx > +spend) {
-		alert("Approve spending " + trx + " BusyMan (BSM) first");
+		alert("Approve spending " + trx + " MEXA -$MXA- first");
 	} else {
 			minersContract.methods.buyEggs(ref, web3.utils.toWei(trx)).send({ from:currentAddr }).then(result => {
         callback();
