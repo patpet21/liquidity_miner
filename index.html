@@ -286,31 +286,41 @@
 	</div></div>
 
 	<script>
+		function copyToClipboard(element) {
+			var tempInput = document.createElement("input");
+			document.body.appendChild(tempInput);
+			tempInput.value = document.querySelector(element).textContent;
+			tempInput.select();
+			document.execCommand("copy");
+			document.body.removeChild(tempInput);
+			alert("Referral link copied to clipboard!");
+		}
+	
 		document.addEventListener("DOMContentLoaded", async function() {
 			// Verifica se MetaMask è installato
 			if (typeof window.ethereum !== 'undefined') {
 				console.log('MetaMask is installed!');
-		
+	
 				try {
 					// Richiedi l'accesso all'account MetaMask
 					const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 					var currentAddr = accounts[0];
 					console.log("Current Address: ", currentAddr);
-		
+	
 					// Assicurati che currentAddr sia stato ottenuto correttamente
 					if (!currentAddr) {
 						console.error('Failed to get the current address from MetaMask');
 						return;
 					}
-		
+	
 					var ref1 = document.getElementById('ref-link');
 					var key = CryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f');
 					var encr = CryptoJS.AES.encrypt(currentAddr, key, { mode: CryptoJS.mode.ECB });
 					console.log("Encrypted Address: ", encr.toString());
-		
+	
 					var encryptedLink = window.location.origin + "/index.html?ref=" + "XX" + encr.toString();
 					console.log("Generated Link: ", encryptedLink);
-		
+	
 					// Imposta il testo e l'href del link
 					ref1.textContent = encryptedLink;
 					ref1.href = encryptedLink;
