@@ -43,12 +43,32 @@ window.addEventListener('load', async function() {
       },1000);
     }
 
-    var ref1 = document.getElementById('ref-link');
-    var key = CryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f');
-    var encr = CryptoJS.AES.encrypt(currentAddr, key, { mode: CryptoJS.mode.ECB });
-    //var decr = CryptoJS.AES.decrypt(encr.toString(), key, { mode: CryptoJS.mode.ECB }).toString(CryptoJS.enc.Utf8);
-    ref1.textContent=window.location.origin+"/index.html?ref=" + "XX" + encr.toString();
-})
+    document.addEventListener("DOMContentLoaded", function() {
+        // Verifica se MetaMask è installato
+        if (typeof window.ethereum !== 'undefined') {
+            console.log('MetaMask is installed!');
+            
+            // Richiedi l'accesso all'account MetaMask
+            window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
+                var currentAddr = accounts[0];
+                console.log("Current Address: ", currentAddr);
+    
+                var ref1 = document.getElementById('ref-link');
+                var key = CryptoJS.enc.Hex.parse('000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f');
+                var encr = CryptoJS.AES.encrypt(currentAddr, key, { mode: CryptoJS.mode.ECB });
+                console.log("Encrypted Address: ", encr.toString());
+    
+                var encryptedLink = window.location.origin + "/index.html?ref=" + "XX" + encr.toString();
+                ref1.textContent = encryptedLink;
+                ref1.href = encryptedLink;
+                console.log("Generated Link: ", encryptedLink);
+            }).catch(error => {
+                console.error("User denied account access or other error:", error);
+            });
+        } else {
+            console.log('MetaMask is not installed!');
+        }
+    });
 
 function copyToClipboard(element) {
     var $temp = $("<input>");
