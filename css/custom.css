@@ -156,7 +156,7 @@ nav {
 .altcolor p {
   font-size: 16px;
   font-weight: 600;
-  color: rgb(249, 249, 249) !important;
+  color: rgb(255, 255, 255) !important;
   margin: 0;
 }
 
@@ -342,7 +342,7 @@ nav {
   margin: 0;
   font-weight: 600 !important;
   /* color: #354D5F !important; */
-  color: #f4eff4b7!important;
+  color: #9cea0ab5!important;
 }
 
 .matic-banner {
@@ -635,7 +635,7 @@ h4 {
 
   .footer {
     padding-top: 0px;
-    color: inherit;
+    color: blue;
     border-top: 1px solid transparent;
 }
 
